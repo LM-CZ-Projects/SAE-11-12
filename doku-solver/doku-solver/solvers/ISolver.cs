@@ -1,4 +1,4 @@
-﻿namespace doku_solver.solvers.algorithms;
+﻿namespace doku_solver.solvers;
 
 public interface ISolver{
 
