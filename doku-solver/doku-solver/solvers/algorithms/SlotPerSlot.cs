@@ -1,9 +1,10 @@
 ﻿namespace doku_solver.solvers.algorithms;
 
 public class SlotPerSlot : Solver{
-    public override int[,] Solve(int[,] tab){
+    public override int[,] Solve(int[,] tab, int maxIterations){
         int[,] result = Copy(tab);
-        while(!IsSolved(result)){
+        int iterations = 0;
+        while(!IsSolved(result) && iterations < maxIterations){
             for (int i = 0; i < result.GetLength(0); i++){
                 for (int j = 0; j < result.GetLength(1); j++){
                     if (result[i, j] == 0){
@@ -14,64 +15,8 @@ public class SlotPerSlot : Solver{
                     }
                 }
             }
+            iterations++;
         }
         return result;
-    }
-
-    private List<int> GetCasePossibilities(int[,] tab, int row, int column){
-        List<int> rowPossibilities = GetRowPossibilities(tab, row);
-        List<int> columnPossibilities = GetColumnPossibilities(tab, column);
-        List<int> sectionPossibilities = GetSectionPossibilities(tab, row, column);
-        List<int> possibilities = new List<int>();
-        foreach (int val in rowPossibilities){
-            if(columnPossibilities.Contains(val) && sectionPossibilities.Contains(val)){
-                possibilities.Add(val);
-            }
-        }
-        return possibilities;
-    }
-
-    private List<int> GetColumnPossibilities(int[,] tab, int column){
-        List<int> possibilities = new List<int>();
-        for(int i = 1; i <= tab.GetLength(0); i++){
-            possibilities.Add(i);
-        }
-        for (int i = 0; i < tab.GetLength(0); i++){
-            if(possibilities.Contains(tab[i, column])){
-                possibilities.Remove(tab[i, column]);
-            }
-        }
-        return possibilities;
-    }
-    
-    private List<int> GetRowPossibilities(int[,] tab, int row){
-        List<int> possibilities = new List<int>();
-        for(int i = 1; i <= tab.GetLength(1); i++){
-            possibilities.Add(i);
-        }
-        for (int i = 0; i < tab.GetLength(1); i++){
-            if(possibilities.Contains(tab[row, i])){
-                possibilities.Remove(tab[row, i]);
-            }
-        }
-        return possibilities;
-    }
-    
-    private List<int> GetSectionPossibilities(int[,] tab, int row, int column){
-        List<int> possibilities = new List<int>();
-        for(int i = 1; i <= tab.GetLength(1); i++){
-            possibilities.Add(i);
-        }
-        int squareSize = (int)Math.Sqrt(tab.GetLength(0));
-        int squareRow = row / squareSize;
-        int squareColumn = column / squareSize;
-        for (int i = squareRow * squareSize; i < squareRow * squareSize + squareSize; i++){
-            for (int j = squareColumn * squareSize; j < squareColumn * squareSize + squareSize; j++){
-                if(possibilities.Contains(tab[i, j])){
-                    possibilities.Remove(tab[i, j]);
-                }
-            }
-        }
-        return possibilities;
     }
 }

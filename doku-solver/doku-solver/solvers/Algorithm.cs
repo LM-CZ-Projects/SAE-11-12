@@ -18,8 +18,8 @@ public class Algorithm{
         return (Solver) Activator.CreateInstance(_type)! ?? throw new InvalidOperationException();
     }
 
-    public int[,] Solve(int[,] tab){
-        return GetClass().Solve(tab);
+    public int[,] Solve(int[,] tab, int maxIterations = 3){
+        return GetClass().Solve(tab, maxIterations);
     }
 
 }
