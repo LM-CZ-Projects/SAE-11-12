@@ -4,7 +4,8 @@ namespace doku_solver.solvers;
 
 public class Algorithm{
 
-    public static readonly Algorithm SmartBruteforce = new(typeof(Bruteforce));
+    public static readonly Algorithm SlotPerSlot = new(typeof(SlotPerSlot));
+    public static readonly Algorithm BrutForce = new(typeof(BrutForce));
 
 
     private readonly Type _type;
@@ -13,8 +14,12 @@ public class Algorithm{
         _type = type;
     }
 
-    public ISolver GetClass(){
-        return (ISolver) Activator.CreateInstance(_type)! ?? throw new InvalidOperationException();
+    private Solver GetClass(){
+        return (Solver) Activator.CreateInstance(_type)! ?? throw new InvalidOperationException();
+    }
+
+    public int[,] Solve(int[,] tab){
+        return GetClass().Solve(tab);
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿namespace doku_solver.solvers.algorithms;
 
-public class Bruteforce : ISolver{
-    public int[,] Solve(int[,] tab){
+public class SlotPerSlot : Solver{
+    public override int[,] Solve(int[,] tab){
         int[,] result = Copy(tab);
         while(!IsSolved(result)){
             for (int i = 0; i < result.GetLength(0); i++){
@@ -16,26 +16,6 @@ public class Bruteforce : ISolver{
             }
         }
         return result;
-    }
-
-    private int[,] Copy(int[,] tab){
-        int[,] nTab = new int[tab.GetLength(0), tab.GetLength(1)];
-        for (int i = 0; i < tab.GetLength(0); i++){
-            for (int j = 0; j < tab.GetLength(1); j++){
-                nTab[i, j] = tab[i, j];
-            }
-        }
-        return nTab;
-    }
-
-    private bool IsSolved(int[,] tab){
-        bool isSolved = true;
-        for (int i = 0; i < tab.GetLength(0) && isSolved; i++){
-            for (int j = 0; j < tab.GetLength(1) && isSolved; j++){
-                if (tab[i, j] == 0) isSolved = false;
-            }
-        }
-        return isSolved;
     }
 
     private List<int> GetCasePossibilities(int[,] tab, int row, int column){
