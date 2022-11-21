@@ -1,7 +1,7 @@
 ﻿namespace doku_solver.solvers.algorithms;
 
-public class Bruteforce : ISolver{
-    public int[,] Solve(int[,] tab){
+public class BrutForce : Solver{
+    public override int[,] Solve(int[,] tab, int maxIterations){
         throw new NotImplementedException();
     }
 }
