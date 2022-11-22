@@ -5,12 +5,10 @@ public class BackTrack : Solver{
     public override int[,] Solve(int[,] tab, int maxIterations){
         int[,] grid = Copy(tab);
         bool final = Backtrack(grid, 0, 0);
-        Console.WriteLine(final);
         return grid;
     }
 
     private bool Backtrack(int[,] grid, int row, int column){
-        Console.WriteLine($"Input: {row}, {column}");
         if (column > grid.GetLength(0) - 1){
             column = 0;
             row++;
