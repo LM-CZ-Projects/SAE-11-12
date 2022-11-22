@@ -1,6 +1,6 @@
-﻿using doku_solver.solvers.algorithms;
+﻿using doku_solver.doku.solvers.algorithms;
 
-namespace doku_solver.solvers;
+namespace doku_solver.doku.solvers;
 
 public class Algorithm{
 
@@ -18,7 +18,7 @@ public class Algorithm{
         return (Solver) Activator.CreateInstance(_type)! ?? throw new InvalidOperationException();
     }
 
-    public int[,] Solve(int[,] tab, int maxIterations = 3){
+    public int[,] Solve(int[,] tab, int maxIterations = 100){
         return GetClass().Solve(tab, maxIterations);
     }
 

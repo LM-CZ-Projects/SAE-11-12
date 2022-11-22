@@ -1,9 +1,6 @@
-﻿namespace doku_solver.solvers;
+﻿namespace doku_solver.doku;
 
-public abstract class Solver{
-
-    public abstract int[,] Solve(int[,] tab, int maxIterations);
-    
+public class Doku{
     protected int[,] Copy(int[,] tab){
         int[,] nTab = new int[tab.GetLength(0), tab.GetLength(1)];
         for (int i = 0; i < tab.GetLength(0); i++){
@@ -18,13 +15,13 @@ public abstract class Solver{
         bool isSolved = true;
         for (int i = 0; i < tab.GetLength(0) && isSolved; i++){
             for (int j = 0; j < tab.GetLength(1) && isSolved; j++){
-                if (GetCasePossibilities(tab, i, j).Count != 0) isSolved = false;
+                if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
             }
         }
         return isSolved;
     }
     
-    protected List<int> GetCasePossibilities(int[,] tab, int row, int column){
+    protected List<int> GetSlotPossibilities(int[,] tab, int row, int column){
         List<int> rowPossibilities = GetRowPossibilities(tab, row);
         List<int> columnPossibilities = GetColumnPossibilities(tab, column);
         List<int> sectionPossibilities = GetSectionPossibilities(tab, row, column);
@@ -80,5 +77,4 @@ public abstract class Solver{
         }
         return possibilities;
     }
-    
 }

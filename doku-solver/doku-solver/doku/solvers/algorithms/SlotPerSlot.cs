@@ -1,4 +1,4 @@
-﻿namespace doku_solver.solvers.algorithms;
+﻿namespace doku_solver.doku.solvers.algorithms;
 
 public class SlotPerSlot : Solver{
     public override int[,] Solve(int[,] tab, int maxIterations){
@@ -8,7 +8,7 @@ public class SlotPerSlot : Solver{
             for (int i = 0; i < result.GetLength(0); i++){
                 for (int j = 0; j < result.GetLength(1); j++){
                     if (result[i, j] == 0){
-                        List<int> possibilities = GetCasePossibilities(result, i, j);
+                        List<int> possibilities = GetSlotPossibilities(result, i, j);
                         if (possibilities.Count == 1){
                             result[i, j] = possibilities[0];
                         }
