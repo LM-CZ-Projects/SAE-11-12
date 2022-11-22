@@ -6,7 +6,7 @@ namespace doku_solver;
 
 public static class DokuSolver{
     public static void Main(){
-        RunGeneratorTest();
+        RunAlgorithmTest();
     }
     
     public static void DisplayGrid(int[,] grid){
@@ -29,7 +29,7 @@ public static class DokuSolver{
 
     private static void RunAlgorithmTest(){
         Loader loader = new Loader("grid_3x3_1");
-        int[,] tab = Algorithm.SlotPerSlot.Solve(loader.GetGrid());
+        int[,] tab = Algorithm.Backtrack.Solve(loader.GetGrid());
         DisplayGrid(tab);
     }
 }

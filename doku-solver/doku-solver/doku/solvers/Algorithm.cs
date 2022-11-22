@@ -6,6 +6,7 @@ public class Algorithm{
 
     public static readonly Algorithm SlotPerSlot = new(typeof(SlotPerSlot));
     public static readonly Algorithm BrutForce = new(typeof(BrutForce));
+    public static readonly Algorithm Backtrack = new(typeof(BackTrack));
 
 
     private readonly Type _type;
