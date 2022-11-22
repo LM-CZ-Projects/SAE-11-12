@@ -1,0 +1,58 @@
+@use './theme';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+p,
+pre {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: normal;
+  color: currentColor;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: normal;
+    color: currentColor;
+  }
+}
+
+a,
+a:hover,
+a:focus {
+  outline: none;
+  font-size: 1em;
+  font-weight: normal;
+  color: currentColor;
+  text-decoration: none;
+}
+
+button,
+button:hover,
+button:focus {
+  border: none;
+  outline: none;
+  font-size: 1em;
+  cursor: pointer;
+  background: none;
+}
