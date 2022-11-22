@@ -20,10 +20,14 @@ public static class DokuSolver{
     }
 
     private static void RunGeneratorTest(){
-        int[,] tab = new Generator().Generate(3);
-        DisplayGrid(tab);
-        // int[,] solvedTab = Algorithm.SlotPerSlot.Solve(tab);
-        // Console.WriteLine("---------------------");
+        int[,] tab = null!;
+        int iterationsCount = 1000;
+        for(int i = 0; i < iterationsCount; i++){
+            Console.WriteLine($"Generating {i+1}/{iterationsCount}");
+            tab = new Generator().Generate(5, 0);
+        }
+        // DisplayGrid(tab);
+        // int[,] solvedTab = Algorithm.Backtrack.Solve(tab);
         // DisplayGrid(solvedTab);
     }
 

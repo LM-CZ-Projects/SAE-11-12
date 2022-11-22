@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using doku_solver.doku.solvers;
+﻿using doku_solver.doku.solvers;
 using doku_solver.doku.solvers.algorithms;
 using doku_solver.doku.tools;
 
@@ -7,21 +6,30 @@ namespace doku_solver.doku.generator;
 
 public class Generator : Doku{
 
-    public int[,] Generate(int sectionSize){
+    public int[,] Generate(int sectionSize, int additionalSlotsCount){
         int[,] grid = GenerateGrid(sectionSize);
         Algorithm algorithm = Algorithm.SlotPerSlot;
         Random random = new Random();
-        Position lastPosition = new Position(0, 0);
-        int lastSlot = 0;
-        
+        List<Position> removedPositions = new List<Position>();
+        List<int> removedValues = new List<int>();
+        // While the grid is solvable, remove a slot
         while (IsSolved(algorithm.Solve(grid))){
             List<Position> positions = GetAvailablePositions(grid);
             Position position = positions[random.Next(positions.Count)];
-            lastPosition = position;
-            lastSlot = grid[position.row, position.column];
+            removedPositions.Add(position);
+            removedValues.Add(grid[position.row, position.column]);
             grid[position.row, position.column] = 0;
         }
-        grid[lastPosition.row, lastPosition.column] = lastSlot;
+        // Reset last deleted position
+        Position lastPosition = removedPositions[^1];
+        grid[lastPosition.row, lastPosition.column] = removedValues[^1];
+        // If to many additional slots, return grid
+        if (additionalSlotsCount > removedPositions.Count) return grid;
+        // Else, reset additional slots
+        for (int i = 1; i <= additionalSlotsCount; i++){
+            lastPosition = removedPositions[^i];
+            grid[lastPosition.row, lastPosition.column] = removedValues[^i];
+        }
         return grid;
     }
 
@@ -29,7 +37,9 @@ public class Generator : Doku{
         int gridSize = sectionSize * sectionSize;
         int[,] grid = new int[gridSize, gridSize];
         ZeroFill(grid);
-        MergeSection(grid, GenerateSection(sectionSize), 0, 0);
+        for(int i = 0; i < sectionSize; i++){
+            MergeSection(grid, GenerateSection(sectionSize), i, i);
+        }
         BackTrack backTrack = new BackTrack();
         return backTrack.Solve(grid, 100);
     }
