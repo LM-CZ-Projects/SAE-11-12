@@ -58,7 +58,9 @@ Nous vons décidé d'opter pour deux façons de faire que nous vous expliciteron
 Afin de mener à bien ce projet, nous avons de nous orienté sur les technologies recommandées.  
 Nous sommes partit sur du C# classiques (sans librairies supplémentaires) car nous n'estimions pas nécessaire de faire appel à des codes tout faits. Notre objectif était de tout concevoir "maison".
 
-Pour ce qui concerne le Web, étant un peu plus avancé de part notre passé respectif, nous avons décidé de mettre en place non pas un 
+Pour ce qui concerne le Web, étant un peu plus avancé de part notre passé respectif, nous avons décidé de mettre en place non pas une mais deux solutions.  
+La première est faite en HTML/CSS pure, afin de respecter au maximum le sujet posé.  
+La seconde, quant à elle, sera faite en VueJS pour ajouter un peu de dynamise (grâce à JavaScript) ainsi qu'une seconde page qui nous permettra de jouer directement sur le site.
 
 ## <a name="more"></a>Informations supplémentaires
 
