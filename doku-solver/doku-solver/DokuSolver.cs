@@ -6,7 +6,7 @@ namespace doku_solver;
 
 public static class DokuSolver{
     public static void Main(){
-        RunAlgorithmTest();
+        RunGeneratorTest();
     }
     
     public static void DisplayGrid(int[,] grid){
