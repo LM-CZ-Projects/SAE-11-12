@@ -1,8 +1,11 @@
 ﻿namespace doku_solver.doku.solvers.algorithms;
 
 public class BackTrack : Solver{
+
+    private int _maxDeep;
     
     public override int[,] Solve(int[,] tab, int maxIterations){
+        _maxDeep = maxIterations;
         int[,] grid = Copy(tab);
         Backtrack(grid, 0, 0);
         return grid;
@@ -16,6 +19,8 @@ public class BackTrack : Solver{
     /// <param name="column">Column to check</param>
     /// <returns>True if backtrack success, false otherwise</returns>
     private bool Backtrack(int[,] grid, int row, int column){
+        if(_maxDeep != -1) _maxDeep--;
+        if(_maxDeep == 0 && _maxDeep != -1) return false;
         if (column >= grid.GetLength(0)){
             column = 0;
             row++;

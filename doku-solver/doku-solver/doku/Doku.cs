@@ -15,66 +15,68 @@ public class Doku{
         bool isSolved = true;
         for (int i = 0; i < tab.GetLength(0) && isSolved; i++){
             for (int j = 0; j < tab.GetLength(1) && isSolved; j++){
-                if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
+                if(tab[i, j] == 0) isSolved = false;
+                // if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
             }
         }
         return isSolved;
     }
     
+    private readonly List<int> _rowPossibilities = new();
+    private readonly List<int> _columnPossibilities = new();
+    private readonly List<int> _sectionPossibilities = new();
+    private readonly List<int> _possibilities = new();
+    
     protected List<int> GetSlotPossibilities(int[,] tab, int row, int column){
-        List<int> rowPossibilities = GetRowPossibilities(tab, row);
-        List<int> columnPossibilities = GetColumnPossibilities(tab, column);
-        List<int> sectionPossibilities = GetSectionPossibilities(tab, row, column);
-        List<int> possibilities = new List<int>();
-        foreach (int val in rowPossibilities){
-            if(columnPossibilities.Contains(val) && sectionPossibilities.Contains(val)){
-                possibilities.Add(val);
+        _possibilities.Clear();
+        GetRowPossibilities(tab, row);
+        GetColumnPossibilities(tab, column);
+        GetSectionPossibilities(tab, row, column);
+        foreach (int val in _rowPossibilities){
+            if(_columnPossibilities.Contains(val) && _sectionPossibilities.Contains(val)){
+                _possibilities.Add(val);
             }
         }
-        return possibilities;
+        return _possibilities;
     }
-
-    private List<int> GetColumnPossibilities(int[,] tab, int column){
-        List<int> possibilities = new List<int>();
+    private void GetColumnPossibilities(int[,] tab, int column){
+        _columnPossibilities.Clear();
         for(int i = 1; i <= tab.GetLength(0); i++){
-            possibilities.Add(i);
+            _columnPossibilities.Add(i);
         }
         for (int i = 0; i < tab.GetLength(0); i++){
-            if(possibilities.Contains(tab[i, column])){
-                possibilities.Remove(tab[i, column]);
+            if(_columnPossibilities.Contains(tab[i, column])){
+                _columnPossibilities.Remove(tab[i, column]);
             }
         }
-        return possibilities;
     }
     
-    private List<int> GetRowPossibilities(int[,] tab, int row){
-        List<int> possibilities = new List<int>();
+    private void GetRowPossibilities(int[,] tab, int row){
+        _rowPossibilities.Clear();
         for(int i = 1; i <= tab.GetLength(1); i++){
-            possibilities.Add(i);
+            _rowPossibilities.Add(i);
         }
         for (int i = 0; i < tab.GetLength(1); i++){
-            if(possibilities.Contains(tab[row, i])){
-                possibilities.Remove(tab[row, i]);
+            if(_rowPossibilities.Contains(tab[row, i])){
+                _rowPossibilities.Remove(tab[row, i]);
             }
         }
-        return possibilities;
     }
     
-    private List<int> GetSectionPossibilities(int[,] tab, int row, int column){
-        List<int> possibilities = new List<int>();
+    private void GetSectionPossibilities(int[,] tab, int row, int column){
+        _sectionPossibilities.Clear();
         for(int i = 1; i <= tab.GetLength(1); i++){
-            possibilities.Add(i);
+            _sectionPossibilities.Add(i);
         }
         int squareSize = (int)Math.Sqrt(tab.GetLength(0));
         int squareRow = row / squareSize;
         int squareColumn = column / squareSize;
         for (int i = squareRow * squareSize; i < squareRow * squareSize + squareSize; i++){
             for (int j = squareColumn * squareSize; j < squareColumn * squareSize + squareSize; j++){
-                if(possibilities.Contains(tab[i, j])){
-                    possibilities.Remove(tab[i, j]);
+                if(_sectionPossibilities.Contains(tab[i, j])){
+                    _sectionPossibilities.Remove(tab[i, j]);
                 }
             }
         }
-        return possibilities;
     }
 }
