@@ -1,0 +1,27 @@
+@use './config';
+
+$light: (
+"text": #211A24,
+"background": #FFF7EA,
+"background-second": #FFFAF2,
+"header-bg": #FFFDF9,
+"hero-accent": #F3DEBB,
+"hero-accent-2": #E6C48C,
+"primary-shade-1": #E8C1EC,
+"primary-shade-2": #D184D9,
+"primary-shade-3": #C665CF
+);
+
+$dark: (
+"text": #FFFFFF,
+"background": #000000
+);
+
+$themes: (
+"light": $light,
+// "dark": $dark,
+);
+
+@function color($usage) {
+  @return map-get(map-get($themes, config.$theme), $usage);
+}
