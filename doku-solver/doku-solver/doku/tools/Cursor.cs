@@ -39,18 +39,18 @@ public class Cursor{
     }
 
     public Cursor Next(){
-        position.Row++;
-        if (position.Row != GridSize) return this;
-        position.Row = 0;
         position.Column++;
+        if (position.Column != GridSize) return this;
+        position.Row++;
+        position.Column = 0;
         return this;
     }
 
     public Cursor Previous(){
-        position.Row--;
-        if (position.Row != -1) return this;
-        position.Row = GridSize - 1;
         position.Column--;
+        if (position.Column != -1) return this;
+        position.Column = GridSize - 1;
+        position.Row--;
         return this;
     }
 
