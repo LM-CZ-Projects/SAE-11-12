@@ -1,0 +1,10 @@
+.footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer > .project > .links > .location > .link > svg {
+  height: 2rem;
+}

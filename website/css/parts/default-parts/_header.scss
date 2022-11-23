@@ -1,0 +1,12 @@
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
+  padding: 1.5rem 5rem;
+  background-color: var(--header-background);
+}
+
+.header > .logo {
+  height: 2rem;
+}
