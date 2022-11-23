@@ -41,7 +41,6 @@ public class Generator : Doku{
     public int[,] GenerateGrid(int sectionSize){
         int gridSize = sectionSize * sectionSize;
         int[,] grid = new int[gridSize, gridSize];
-        ZeroFill(grid);
         GenerateBaseGrid(grid, sectionSize);
         
 
