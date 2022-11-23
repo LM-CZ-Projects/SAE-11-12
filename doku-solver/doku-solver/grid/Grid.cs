@@ -3,8 +3,8 @@
 namespace doku_solver.grid;
 
 public class Grid{
-    private int[,] SquareGrid { get; }
-    private Cursor Cursor{ get; }
+    private int[,] SquareGrid;
+    public Cursor Cursor{ get; }
 
     public Grid(int[,] grid){
         SquareGrid = CopyArray(grid);
@@ -19,6 +19,22 @@ public class Grid{
             }
         }
         return newArray;
+    }
+
+    public int[,] GetGrid(){
+        return SquareGrid;
+    }
+
+    public int GetLength(){
+        return SquareGrid.GetLength(0);
+    }
+
+    public void SetOnCursor(int value){
+        SquareGrid[Cursor.GetPosition().Row, Cursor.GetPosition().Column] = value;
+    }
+
+    public int GetOnCursor(){
+        return SquareGrid[Cursor.GetPosition().Row, Cursor.GetPosition().Column];
     }
     
 }

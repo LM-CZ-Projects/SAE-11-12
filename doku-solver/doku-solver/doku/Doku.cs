@@ -1,4 +1,7 @@
-﻿namespace doku_solver.doku;
+﻿using doku_solver.doku.tools;
+using doku_solver.grid;
+
+namespace doku_solver.doku;
 
 public class Doku{
     protected int[,] Copy(int[,] tab){
@@ -22,6 +25,10 @@ public class Doku{
         return isSolved;
     }
     
+    protected bool IsSolved(Grid grid){
+        return IsSolved(grid.GetGrid());
+    }
+    
     private readonly List<int> _rowPossibilities = new();
     private readonly List<int> _columnPossibilities = new();
     private readonly List<int> _sectionPossibilities = new();
@@ -38,6 +45,10 @@ public class Doku{
             }
         }
         return _possibilities;
+    }
+    
+    protected List<int> GetSlotPossibilities(Grid grid, Position position){
+        return GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column);
     }
     private void GetColumnPossibilities(int[,] tab, int column){
         _columnPossibilities.Clear();

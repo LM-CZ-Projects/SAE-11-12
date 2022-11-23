@@ -6,9 +6,9 @@ namespace doku_solver;
 
 public static class DokuSolver{
     public static void Main(){
-        // List<int[,]> grids = new Generator().ImportJsonList("unit_tests");
-        // DisplayGrid(Algorithm.SlotPerSlot.Solve(grids[0]));
-        GenerateCsv(5, "5x5");
+        List<int[,]> grids = new Generator().ImportJsonList("unit_tests_2x2");
+        DisplayGrid(grids[0]);
+        DisplayGrid(Algorithm.SlotPerSlot.Solve(grids[0]));
     }
 
     private static void RunTest(){
@@ -55,17 +55,17 @@ public static class DokuSolver{
         new Generator().ExportCsv(tab, fileName);
     }
 
-    private static void RunAlgorithmTest(string fileName){
+    private static void RunAlgorithmTest(string fileName, Algorithm algorithm){
         List<int[,]> grids = new Generator().ImportJsonList(fileName);
         double startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() * 1D / 1000;
         foreach (int[,] grid in grids){
-            RunAlgorithm(grid, Algorithm.Backtrack);
+            RunAlgorithm(grid, algorithm);
         }
         double endTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() * 1D / 1000;
         Console.WriteLine(Math.Round(endTime - startTime, 3) + "s");
     }
     
-    private static void RunAlgorithm(int[,] grid, Algorithm algorithm){
-        algorithm.Solve(grid);
+    private static int[,] RunAlgorithm(int[,] grid, Algorithm algorithm){
+        return algorithm.Solve(grid);
     }
 }
