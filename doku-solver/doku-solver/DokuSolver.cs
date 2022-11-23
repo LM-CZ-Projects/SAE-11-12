@@ -4,11 +4,14 @@ using doku_solver.doku.tools;
 
 namespace doku_solver;
 
-public static class DokuSolver{
+public static class DokuSolver {
+    private static readonly DokuTimer TIMER = new DokuTimer();
     public static void Main(){
         // List<int[,]> grids = new Generator().ImportJsonList("unit_tests");
         // DisplayGrid(Algorithm.SlotPerSlot.Solve(grids[0]));
-        GenerateCsv(5, "5x5");
+        // GenerateCsv(5, "5x5");
+        
+        RunAlgorithmTest("unit_tests", Algorithm.OtherBackTrack); // O.863
     }
 
     private static void RunTest(){
@@ -55,14 +58,14 @@ public static class DokuSolver{
         new Generator().ExportCsv(tab, fileName);
     }
 
-    private static void RunAlgorithmTest(string fileName){
+    private static void RunAlgorithmTest(string fileName, Algorithm algorithm){
         List<int[,]> grids = new Generator().ImportJsonList(fileName);
-        double startTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() * 1D / 1000;
-        foreach (int[,] grid in grids){
-            RunAlgorithm(grid, Algorithm.Backtrack);
-        }
-        double endTime = DateTimeOffset.Now.ToUnixTimeMilliseconds() * 1D / 1000;
-        Console.WriteLine(Math.Round(endTime - startTime, 3) + "s");
+        
+        TIMER.Start();
+        foreach (int[,] grid in grids) RunAlgorithm(grid, algorithm);
+        TIMER.Stop();
+        
+        Console.WriteLine(TIMER.GetResult() + "s");
     }
     
     private static void RunAlgorithm(int[,] grid, Algorithm algorithm){
