@@ -3,12 +3,12 @@
 namespace doku_solver.grid;
 
 public class Grid{
-    private int[,] SquareGrid;
+    private readonly int[,] _grid;
     public Cursor Cursor{ get; }
 
     public Grid(int[,] grid){
-        SquareGrid = CopyArray(grid);
-        Cursor = new Cursor(0, 0, this.SquareGrid.GetLength(0));
+        _grid = CopyArray(grid);
+        Cursor = new Cursor(0, 0, this._grid.GetLength(0));
     }
 
     private int[,] CopyArray(int[,] array){
@@ -22,19 +22,35 @@ public class Grid{
     }
 
     public int[,] GetGrid(){
-        return SquareGrid;
+        return _grid;
     }
 
     public int GetLength(){
-        return SquareGrid.GetLength(0);
+        return _grid.GetLength(0);
+    }
+
+    public void SetOnPosition(Position position, int value){
+        _grid[position.Row, position.Column] = value;
     }
 
     public void SetOnCursor(int value){
-        SquareGrid[Cursor.GetPosition().Row, Cursor.GetPosition().Column] = value;
+        _grid[Cursor.GetPosition().Row, Cursor.GetPosition().Column] = value;
+    }
+    
+    public void SetOnCursor(Cursor cursor, int value){
+        _grid[cursor.GetPosition().Row, cursor.GetPosition().Column] = value;
+    }
+    
+    public int GetOnPosition(Position position){
+        return _grid[position.Row, position.Column];
     }
 
     public int GetOnCursor(){
-        return SquareGrid[Cursor.GetPosition().Row, Cursor.GetPosition().Column];
+        return _grid[Cursor.GetPosition().Row, Cursor.GetPosition().Column];
+    }
+    
+    public int GetOnCursor(Cursor cursor){
+        return _grid[cursor.GetPosition().Row, cursor.GetPosition().Column];
     }
     
 }
