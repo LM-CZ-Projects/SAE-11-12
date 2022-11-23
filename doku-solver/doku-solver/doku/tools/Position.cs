@@ -9,6 +9,11 @@ public class Position{
         Column = 0;
     }
     
+    public Position(Position position){
+        Row = position.Row;
+        Column = position.Column;
+    }
+    
     public Position(int row, int column){
         Row = row;
         Column = column;

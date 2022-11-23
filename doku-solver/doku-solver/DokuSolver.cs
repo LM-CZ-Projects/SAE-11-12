@@ -6,9 +6,9 @@ namespace doku_solver;
 
 public static class DokuSolver{
     public static void Main(){
-        List<int[,]> grids = new Generator().ImportJsonList("unit_tests_2x2");
+        List<int[,]> grids = new Generator().ImportJsonList("unit_tests");
         DisplayGrid(grids[0]);
-        DisplayGrid(Algorithm.SlotPerSlot.Solve(grids[0]));
+        DisplayGrid(Algorithm.Backtrack.Solve(grids[0]));
     }
 
     private static void RunTest(){

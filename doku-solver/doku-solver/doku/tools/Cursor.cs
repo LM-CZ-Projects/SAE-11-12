@@ -8,15 +8,21 @@ public class Cursor{
         GridSize = gridSize;
         position = new Position();
     }
+    
+    public Cursor(Cursor cursor, int gridSize){
+        GridSize = gridSize;
+        position = new Position(cursor.GetPosition());
+    }
 
     public Cursor(int row, int column, int gridSize){
         GridSize = gridSize;
         position = new Position(row, column);
     }
 
-    public void SetPosition(int row, int column){
-        position.Row = row;
-        position.Column = column;
+    public Cursor SetPosition(Position newPosition){
+        position.Row = newPosition.Row;
+        position.Column = newPosition.Column;
+        return this;
     }
     
     public void SetPosition(Cursor newCursor){
@@ -29,7 +35,7 @@ public class Cursor{
     }
 
     public bool HasNext(){
-        return position.Row != GridSize - 1 || position.Column != GridSize - 1;
+        return position.Row < GridSize - 1 || position.Column < GridSize - 1;
     }
 
     public Cursor Next(){
@@ -40,8 +46,20 @@ public class Cursor{
         return this;
     }
 
+    public Cursor Previous(){
+        position.Row--;
+        if (position.Row != -1) return this;
+        position.Row = GridSize - 1;
+        position.Column--;
+        return this;
+    }
+
     public void Reset(){
         position.Row = 0;
         position.Column = 0;
+    }
+    
+    public Cursor GetCopy(){
+        return new Cursor(this, GridSize);
     }
 }
