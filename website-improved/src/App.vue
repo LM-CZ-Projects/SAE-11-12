@@ -3,8 +3,8 @@
 </template>
 
 <style lang="scss">
-@use "./assets/css/theme";
-@forward "./assets/css/normalize";
+@use "assets/css/theme";
+@forward "assets/css/normalize";
 
 html {
   scroll-behavior: smooth;

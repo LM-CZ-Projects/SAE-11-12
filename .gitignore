@@ -1,0 +1,10 @@
+*/.git/
+
+.idea/
+*/.idea/
+
+*/node_modules/
+
+*/README.md
+
+*/.gitignore
