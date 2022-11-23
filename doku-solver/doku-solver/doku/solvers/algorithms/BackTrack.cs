@@ -10,6 +10,7 @@ public class BackTrack : Solver{
     public override int[,] Solve(int[,] tab, int maxIterations){
         _maxDeep = maxIterations;
         Grid grid = new Grid(tab);
+        Backtrack(grid, 0, 0);
         return grid.GetGrid();
     }
 
