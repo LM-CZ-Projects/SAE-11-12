@@ -21,19 +21,19 @@ public class Generator : Doku{
             List<Position> positions = GetAvailablePositions(grid);
             Position position = positions[random.Next(positions.Count)];
             removedPositions.Add(position);
-            removedValues.Add(grid[position.row, position.column]);
-            grid[position.row, position.column] = 0;
+            removedValues.Add(grid[position.Row, position.Column]);
+            grid[position.Row, position.Column] = 0;
         }
 
         // Reset last deleted position
         Position lastPosition = removedPositions[^1];
-        grid[lastPosition.row, lastPosition.column] = removedValues[^1];
+        grid[lastPosition.Row, lastPosition.Column] = removedValues[^1];
         // If to many additional slots, return grid
         if (additionalSlotsCount > removedPositions.Count) return grid;
         // Else, reset additional slots
         for (int i = 1; i <= additionalSlotsCount; i++){
             lastPosition = removedPositions[^i];
-            grid[lastPosition.row, lastPosition.column] = removedValues[^i];
+            grid[lastPosition.Row, lastPosition.Column] = removedValues[^i];
         }
         return grid;
     }
