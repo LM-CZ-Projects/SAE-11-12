@@ -2,27 +2,20 @@
 
 namespace doku_solver.grid;
 
-public class Grid{
-    private readonly int[,] _grid;
+public class Grid : GridIO{
     public Cursor Cursor{ get; }
 
-    public Grid(int[,] grid){
-        _grid = CopyArray(grid);
-        Cursor = new Cursor(0, 0, this._grid.GetLength(0));
+    public Grid(int sectionSize) : base(sectionSize){
+        Cursor = new Cursor(0, 0, _grid.GetLength(0));
     }
 
-    private int[,] CopyArray(int[,] array){
-        int[,] newArray = new int[array.GetLength(0), array.GetLength(1)];
-        for(int i = 0; i < array.GetLength(0); i++){
-            for(int j = 0; j < array.GetLength(1); j++){
-                newArray[i, j] = array[i, j];
-            }
-        }
-        return newArray;
+    [Obsolete("Will be removed to force usage of short tabs")]
+    public Grid(int[,] grid) : base(grid){
+        Cursor = new Cursor(0, 0, _grid.GetLength(0));
     }
-
-    public int[,] GetGrid(){
-        return _grid;
+    
+    public Grid(short[,] grid) : base(grid){
+        Cursor = new Cursor(0, 0, _grid.GetLength(0));
     }
 
     public int GetLength(){
@@ -30,15 +23,15 @@ public class Grid{
     }
 
     public void SetOnPosition(Position position, int value){
-        _grid[position.Row, position.Column] = value;
+        _grid[position.Row, position.Column] = (short) value;
     }
 
     public void SetOnCursor(int value){
-        _grid[Cursor.GetPosition().Row, Cursor.GetPosition().Column] = value;
+        _grid[Cursor.GetPosition().Row, Cursor.GetPosition().Column] = (short) value;
     }
     
     public void SetOnCursor(Cursor cursor, int value){
-        _grid[cursor.GetPosition().Row, cursor.GetPosition().Column] = value;
+        _grid[cursor.GetPosition().Row, cursor.GetPosition().Column] = (short) value;
     }
     
     public int GetOnPosition(Position position){
