@@ -1,11 +1,16 @@
 ﻿namespace doku_solver.doku.tools;
 
 public class Position{
-    public int row{ get; }
-    public int column{ get; }
+    public int Row{ get; set; }
+    public int Column{ get; set; }
+
+    public Position(){
+        Row = 0;
+        Column = 0;
+    }
     
     public Position(int row, int column){
-        this.row = row;
-        this.column = column;
+        Row = row;
+        Column = column;
     }
 }
