@@ -1,0 +1,78 @@
+/* DEFAULTS */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* TEXTS */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: normal;
+}
+
+p,
+pre,
+span {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* BUTTONS */
+a,
+a:hover,
+a:focus,
+a:visited {
+  border: none;
+  outline: none;
+  background: none;
+  color: currentColor;
+}
+
+button,
+button:hover,
+button:focus,
+button:disabled {
+  border: none;
+  outline: none;
+  background: none;
+  color: currentColor;
+}
+
+/* LISTS */
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* VISUALS */
+img,
+video {
+  display: block;
+}
