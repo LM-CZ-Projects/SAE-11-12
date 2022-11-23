@@ -65,7 +65,7 @@ public static class DokuSolver{
         Console.WriteLine(Math.Round(endTime - startTime, 3) + "s");
     }
     
-    private static void RunAlgorithm(int[,] grid, Algorithm algorithm){
-        algorithm.Solve(grid);
+    private static int[,] RunAlgorithm(int[,] grid, Algorithm algorithm){
+        return algorithm.Solve(grid);
     }
 }
