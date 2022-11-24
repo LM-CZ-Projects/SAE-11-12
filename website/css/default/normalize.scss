@@ -48,6 +48,7 @@ a:visited {
   outline: none;
   background: none;
   color: currentColor;
+  text-decoration: none;
 }
 
 button,
@@ -69,6 +70,7 @@ li {
   font-size: 1em;
   font-style: normal;
   font-weight: normal;
+  list-style-type: none;
 }
 
 /* VISUALS */

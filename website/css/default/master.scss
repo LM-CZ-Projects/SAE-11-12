@@ -1,0 +1,6 @@
+@forward "../parts/default-parts/header";
+@forward "../parts/default-parts/footer";
+
+html {
+  background-color: var(--background);
+}
