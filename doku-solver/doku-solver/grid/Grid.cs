@@ -8,13 +8,12 @@ public class Grid : GridIO{
     public Grid(int sectionSize) : base(sectionSize){
         Cursor = new Cursor(0, 0, _grid.GetLength(0));
     }
-
-    [Obsolete("Will be removed to force usage of short tabs")]
-    public Grid(int[,] grid) : base(grid){
-        Cursor = new Cursor(0, 0, _grid.GetLength(0));
-    }
     
     public Grid(short[,] grid) : base(grid){
+        Cursor = new Cursor(0, 0, _grid.GetLength(0));
+    }
+
+    public Grid(Grid grid) : base(grid.GetGrid()){
         Cursor = new Cursor(0, 0, _grid.GetLength(0));
     }
 
@@ -34,15 +33,15 @@ public class Grid : GridIO{
         _grid[cursor.GetPosition().Row, cursor.GetPosition().Column] = (short) value;
     }
     
-    public int GetOnPosition(Position position){
+    public short GetOnPosition(Position position){
         return _grid[position.Row, position.Column];
     }
 
-    public int GetOnCursor(){
+    public short GetOnCursor(){
         return _grid[Cursor.GetPosition().Row, Cursor.GetPosition().Column];
     }
     
-    public int GetOnCursor(Cursor cursor){
+    public short GetOnCursor(Cursor cursor){
         return _grid[cursor.GetPosition().Row, cursor.GetPosition().Column];
     }
     

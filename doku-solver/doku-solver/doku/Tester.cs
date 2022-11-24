@@ -12,7 +12,7 @@ public class Tester{
         timer.Start();
         for(int i = 0; i < iterationsCount; i++){
             if (displayProgression) Console.WriteLine($"Generating {i+1}/{iterationsCount}...");
-            if(generateFullGrid) generator.GenerateGrid(sectionSize);
+            if(generateFullGrid) generator.GenerateSolvedGrid(sectionSize);
             else generator.Generate(sectionSize, 0);
         }
         timer.Stop();
@@ -20,7 +20,7 @@ public class Tester{
     }
 
     public void TestAlgorithmPerformances(Algorithm algorithm, int iterationsCount, int sectionSize, bool displayProgression){
-        List<int[,]> grids = GridIO.ImportJsonGrids($"unit_tests_{sectionSize}x{sectionSize}");
+        List<Grid> grids = GridIO.ImportJsonGrids($"unit_tests_{sectionSize}x{sectionSize}");
         DokuTimer timer = new DokuTimer();
         timer.Start();
         for(int i = 0; i < iterationsCount; i++){
@@ -35,8 +35,8 @@ public class Tester{
         TestAlgorithm(algorithm, displayResult, new Generator().Generate(sectionSize, 0));
     }
     
-    public void TestAlgorithm(Algorithm algorithm, bool displayResult, int[,] grid){
-        int[,] solvedGrid = algorithm.Solve(grid);
+    public void TestAlgorithm(Algorithm algorithm, bool displayResult, Grid grid){
+        Grid solvedGrid = algorithm.Solve(grid);
         DokuSolver.DisplayGrid(new Grid(solvedGrid));
     }
 }

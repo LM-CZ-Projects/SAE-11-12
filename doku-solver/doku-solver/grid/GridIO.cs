@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using doku_solver.doku.generator;
+using doku_solver.doku.tools;
 
 namespace doku_solver.grid;
 
@@ -11,42 +12,14 @@ public class GridIO{
     // Constructors \\
     
     public GridIO(int sectionSize){
-        Generator generator = new Generator();
-        _grid = GetGridAsShort(generator.Generate(sectionSize, 0));
+        _grid = new short[sectionSize, sectionSize];
     }
 
     public GridIO(short[,] grid){
-        _grid = grid;
-    }
-    
-    // Grid Management Methods \\
-    
-    [Obsolete("Will be removed to force usage of short tabs")]
-    public GridIO(int[,] grid){
         _grid = CopyArray(grid);
     }
     
-    [Obsolete("Will be removed to force usage of short tabs")]
-    protected int[,] GetGridAsInt(){
-        int[,] grid = new int[_grid.GetLength(0), _grid.GetLength(1)];
-        for(int i = 0; i < _grid.GetLength(0); i++){
-            for(int j = 0; j < _grid.GetLength(1); j++){
-                grid[i, j] = _grid[i, j];
-            }
-        }
-        return grid;
-    }
-    
-    [Obsolete("Will be removed to force usage of short tabs")]
-    protected short[,] GetGridAsShort(int[,] grid){
-        short[,] shortGrid = new short[grid.GetLength(0), grid.GetLength(1)];
-        for(int i = 0; i < grid.GetLength(0); i++){
-            for(int j = 0; j < grid.GetLength(1); j++){
-                shortGrid[i, j] = (short) grid[i, j];
-            }
-        }
-        return shortGrid;
-    }
+    // Grid Management Methods \\
     
     protected short[,] CopyArray(short[,] array){
         short[,] newArray = new short[array.GetLength(0), array.GetLength(1)];
@@ -58,36 +31,20 @@ public class GridIO{
         return newArray;
     }
     
-    [Obsolete("Will be removed to force usage of short tabs")]
-    protected short[,] CopyArray(int[,] array){
-        short[,] newArray = new short[array.GetLength(0), array.GetLength(1)];
-        for(int i = 0; i < array.GetLength(0); i++){
-            for(int j = 0; j < array.GetLength(1); j++){
-                newArray[i, j] = (short) array[i, j];
-            }
-        }
-        return newArray;
-    }
-    
-    [Obsolete("Will be removed to force usage of short tabs")]
-    public int[,] GetGrid(){
-        return GetGridAsInt();
-    }
-    
-    public short[,] GetShortGrid(){
+    public short[,] GetGrid(){
         return _grid;
     }
     
     // IO Methods \\
     
-    public static void ExportJsonGrid(int[,] grid){
+    public static void ExportJsonGrid(short[,] grid){
         JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
         string jsonSerialized = JsonSerializer.Serialize(grid, options);
         File.WriteAllText("../../../grids/export/{fileName}.json", jsonSerialized);
     }
 
     public static void GenerateExportJsonGrids(int count, int sectionSize, string fileName){
-        List<int[,]> grids = new List<int[,]>();
+        List<Grid> grids = new List<Grid>();
         Generator generator = new Generator();
         for (int i = 0; i < count; i++){
             grids.Add(generator.Generate(sectionSize, 0));
@@ -95,13 +52,13 @@ public class GridIO{
         ExportJsonGrids(grids, fileName);
     }
     
-    public static void ExportJsonGrids(List<int[,]> grids, string fileName){
-        List<int[]> flattenedGrids = new List<int[]>();
+    public static void ExportJsonGrids(List<Grid> grids, string fileName){
+        List<short[]> flattenedGrids = new List<short[]>();
         foreach (var grid in grids){
-            int[] flattenedGrid = new int[grid.Length];
-            for (int i = 0; i < grid.GetLength(0); i++)
-                for (int j = 0; j < grid.GetLength(1); j++)
-                    flattenedGrid[i * grid.GetLength(0) + j] = grid[i, j];
+            short[] flattenedGrid = new short[grid.GetLength() * grid.GetLength()];
+            for (int i = 0; i < grid.GetLength(); i++)
+                for (int j = 0; j < grid.GetLength(); j++)
+                    flattenedGrid[i * grid.GetLength() + j] = grid.GetOnPosition(new Position(i, j));
             flattenedGrids.Add(flattenedGrid);
         }
         JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
@@ -109,7 +66,7 @@ public class GridIO{
         File.WriteAllText($"../../../grids/export/{fileName}.json", jsonSerialized);
     }
     
-    public static void ExportCsvGrid(int[,] grid, string fileName){
+    public static void ExportCsvGrid(short[,] grid, string fileName){
         List<string> lines = new List<string>();
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < grid.GetLength(0); i++){
@@ -124,24 +81,24 @@ public class GridIO{
         File.WriteAllText($"../../../grids/export/{fileName}.csv", final);
     }
 
-    public static int[,] ImportJsonGrid(string fileName){
-        int[]? flattenedGrid = JsonSerializer.Deserialize<int[]>(File.ReadAllText($"../../../grids/export/{fileName}.json"));
-        int[,] grid = new int[(int) Math.Sqrt(flattenedGrid!.Length), (int) Math.Sqrt(flattenedGrid.Length)];
+    public static short[,] ImportJsonGrid(string fileName){
+        short[]? flattenedGrid = JsonSerializer.Deserialize<short[]>(File.ReadAllText($"../../../grids/export/{fileName}.json"));
+        short[,] grid = new short[(int) Math.Sqrt(flattenedGrid!.Length), (int) Math.Sqrt(flattenedGrid.Length)];
         for (int i = 0; i < grid.GetLength(0); i++)
             for (int j = 0; j < grid.GetLength(1); j++)
                 grid[i, j] = flattenedGrid[i * grid.GetLength(0) + j];
         return grid;
     }
     
-    public static List<int[,]> ImportJsonGrids(string fileName){
-        List<int[]>? flattenedGrids = JsonSerializer.Deserialize<List<int[]>>(File.ReadAllText($"../../../grids/export/{fileName}.json"));
-        List<int[,]> grids = new List<int[,]>();
+    public static List<Grid> ImportJsonGrids(string fileName){
+        List<short[]>? flattenedGrids = JsonSerializer.Deserialize<List<short[]>>(File.ReadAllText($"../../../grids/export/{fileName}.json"));
+        List<Grid> grids = new List<Grid>();
         foreach (var flattenedGrid in flattenedGrids!){
-            int[,] grid = new int[(int) Math.Sqrt(flattenedGrid.Length), (int) Math.Sqrt(flattenedGrid.Length)];
+            short[,] grid = new short[(int) Math.Sqrt(flattenedGrid.Length), (int) Math.Sqrt(flattenedGrid.Length)];
             for (int i = 0; i < grid.GetLength(0); i++)
                 for (int j = 0; j < grid.GetLength(1); j++)
                     grid[i, j] = flattenedGrid[i * grid.GetLength(0) + j];
-            grids.Add(grid);
+            grids.Add(new Grid(grid));
         }
         return grids;
     }
