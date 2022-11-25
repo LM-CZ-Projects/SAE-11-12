@@ -1,16 +1,11 @@
 ﻿using doku_solver.doku;
-using doku_solver.doku.generator;
-using doku_solver.doku.solvers;
-using doku_solver.doku.tools;
 using doku_solver.grid;
 
 namespace doku_solver;
 
 public static class DokuSolver{
     public static void Main(){
-        int[,] grid = GridIO.ImportJsonGrids("unit_tests_3x3")[0];
-        DisplayGrid(new Grid(grid));
-        new Tester().TestAlgorithm(Algorithm.SlotPerSlot, true, grid);
+        new Tester().TestGeneratorPerformances(1000, 3, false, true); // 12.7s
     }
     
     public static void DisplayGrid(Grid grid){

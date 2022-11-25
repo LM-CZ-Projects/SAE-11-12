@@ -4,24 +4,24 @@ using doku_solver.grid;
 namespace doku_solver.doku.solvers.algorithms;
 
 public class SlotPerSlot : Solver{
-    public override int[,] Solve(int[,] tab, int maxIterations){
-        Grid grid = new Grid(tab);
+    public override Grid Solve(Grid grid, int maxIterations){
+        Grid targetGrid = new Grid(grid);
         int iterations = 0;
-        while(!IsSolved(grid) && iterations < maxIterations){
-            while (grid.Cursor.HasNext()){
-                Position position = grid.Cursor.GetPosition();
+        while(!IsSolved(targetGrid) && iterations < maxIterations){
+            while (targetGrid.Cursor.HasNext()){
+                Position position = targetGrid.Cursor.GetPosition();
                 // Console.WriteLine($"{position.Row}, {position.Column}");
-                if (grid.GetOnCursor() == 0){
-                    List<int> possibilities = GetSlotPossibilities(grid, position);
+                if (targetGrid.GetOnCursor() == 0){
+                    List<short> possibilities = GetSlotPossibilities(targetGrid, position);
                     if (possibilities.Count == 1){
-                        grid.SetOnCursor(possibilities[0]);
+                        targetGrid.SetOnCursor(possibilities[0]);
                     }
                 }
-                grid.Cursor.Next();
+                targetGrid.Cursor.Next();
             }
-            grid.Cursor.Reset();
+            targetGrid.Cursor.Reset();
             iterations++;
         }
-        return grid.GetGrid();
+        return targetGrid;
     }
 }

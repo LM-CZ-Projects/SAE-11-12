@@ -7,11 +7,11 @@ public class BackTrack : Solver{
 
     private int _maxDeep;
     
-    public override int[,] Solve(int[,] tab, int maxIterations){
+    public override Grid Solve(Grid grid, int maxIterations){
         _maxDeep = maxIterations;
-        Grid grid = new Grid(tab);
-        Backtrack(grid, 0, 0);
-        return grid.GetGrid();
+        Grid solvedGrid = new Grid(grid);
+        Backtrack(solvedGrid, 0, 0);
+        return solvedGrid;
     }
 
     private bool Backtrack(Grid grid, int row, int column){
@@ -35,24 +35,23 @@ public class BackTrack : Solver{
         return false;
     }
 
-    private bool IsPresentForSlot(int[,] grid, int row, int column, int value){
-        for(int i = 0; i < grid.GetLength(0); i++){
-            if (grid[row, i] == value) return true;
-            if (grid[i, column] == value) return true;
+    private bool IsPresentForSlot(Grid grid, int row, int column, int value){
+        for(int i = 0; i < grid.GetLength(); i++){
+            if (grid.GetGrid()[row, i] == value) return true;
+            if (grid.GetGrid()[i, column] == value) return true;
         }
-        int sqrt = (int)Math.Sqrt(grid.GetLength(0));
+        int sqrt = (int)Math.Sqrt(grid.GetLength());
         int boxRowStart = row - row % sqrt;
         int boxColStart = column - column % sqrt;
         for (int r = boxRowStart; r < boxRowStart + sqrt; r++){
             for (int c = boxColStart; c < boxColStart + sqrt; c++){
-                if (grid[r, c] == value) return true;
+                if (grid.GetGrid()[r, c] == value) return true;
             }
         }
-
         return false;
     }
 
     private bool IsPresentForSlot(Grid grid, Position position, int value){
-        return IsPresentForSlot(grid.GetGrid(), position.Row, position.Column, value);
+        return IsPresentForSlot(grid, position.Row, position.Column, value);
     }
 }

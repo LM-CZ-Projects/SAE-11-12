@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using doku_solver.doku.solvers.algorithms;
+using doku_solver.grid;
 
 namespace doku_solver.doku.solvers;
 
@@ -20,8 +21,8 @@ public class Algorithm{
         return (Solver) Activator.CreateInstance(_type)! ?? throw new InvalidOperationException();
     }
 
-    public int[,] Solve(int[,] tab, int maxIterations = 100){
-        return GetClass().Solve(tab, maxIterations);
+    public Grid Solve(Grid grid, int maxIterations = 100){
+        return GetClass().Solve(grid, maxIterations);
     }
 
     public static List<Algorithm> GetAlgorithms(){
