@@ -37,6 +37,6 @@ public class Tester{
     
     public void TestAlgorithm(Algorithm algorithm, bool displayResult, Grid grid){
         Grid solvedGrid = algorithm.Solve(grid);
-        DokuSolver.DisplayGrid(new Grid(solvedGrid));
+        if(displayResult) DokuSolver.DisplayGrid(new Grid(solvedGrid));
     }
 }
