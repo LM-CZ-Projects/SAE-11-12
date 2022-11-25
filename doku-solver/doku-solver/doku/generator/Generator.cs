@@ -18,7 +18,7 @@ public class Generator : Doku{
         List<Position> removedPositions = new List<Position>();
         List<short> removedValues = new List<short>();
         // While the grid is solvable, remove a slot
-        while (IsSolved(algorithm.Solve(grid, 1000))){
+        while (IsFilled(algorithm.Solve(grid, 1000))){
             List<Position> positions = GetAvailablePositions(grid);
             Position position = positions[random.Next(positions.Count)];
             removedPositions.Add(position);
@@ -49,7 +49,7 @@ public class Generator : Doku{
         // int[,] solvedGrid = backTrack.Solve(grid, (int) Math.Pow(Factorial(sectionSize), 3)); // 5!^3
         Grid solvedGrid = backTrack.Solve(baseGrid, -1);
         // DokuSolver.DisplayGrid(grid);
-        if (!IsSolved(solvedGrid)) return null!;
+        if (!IsFilled(solvedGrid)) return null!;
         return solvedGrid;
     }
 
