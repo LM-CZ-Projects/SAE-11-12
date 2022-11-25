@@ -1,0 +1,28 @@
+@forward "./sections/history";
+@forward "./sections/grids";
+
+html {
+  scroll-behavior: smooth;
+}
+
+section > .header {
+  display: flex;
+  grid-gap: 1rem;
+  max-width: 20rem;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: var(--default-horizontal-padding);
+}
+
+section > .header > .icon {
+  height: 4rem;
+}
+
+section > .header > .title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+section > .header > .description {
+  line-height: 175%;
+}

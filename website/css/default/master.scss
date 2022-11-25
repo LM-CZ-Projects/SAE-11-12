@@ -1,6 +1,18 @@
+/* IMPORT HEADER AND FOOTER MODULES (use code only) */
 @forward "../parts/default-parts/header";
 @forward "../parts/default-parts/footer";
 
 html {
+  color: var(--text-color);
   background-color: var(--background);
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+section:nth-child(2n) {
+  background-color: var(--background-alt);
 }

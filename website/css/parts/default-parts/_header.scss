@@ -1,12 +1,35 @@
-.header {
+body > .header {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 999;
+  display: flex;
   position: fixed;
-  padding: 1.5rem 5rem;
+  align-items: center;
+  justify-content: space-between;
   background-color: var(--header-background);
+  padding: 1.5rem var(--default-horizontal-padding);
 }
 
-.header > .logo {
+body > .header > .logo {
   height: 2rem;
+}
+
+body > .header > .menu > .content {
+  display: flex;
+}
+
+body > .header > .menu > .content > .item > .link {
+  opacity: .5;
+  display: flex;
+  grid-gap: .5em;
+  align-items: center;
+  padding: .75em 1.5em;
+  flex-direction: column;
+  transition: opacity 350ms ease;
+}
+
+body > .header > .menu > .content > .item > .link:hover,
+body > .header > .menu > .content > .item > .link:focus {
+  opacity: 1;
 }

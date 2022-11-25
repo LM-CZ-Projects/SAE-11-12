@@ -1,3 +1,191 @@
+.history {
+  display: flex;
+  grid-gap: 7.5rem;
+  flex-direction: column;
+  justify-content: center;
+}
+.history > .header {
+  max-width: 20rem;
+}
 
+.history > .timeline {
+  z-index: 0;
+  display: flex;
+  grid-gap: 2.5rem;
+  box-sizing: unset;
+  position: relative;
+  align-items: flex-end;
+  overflow: auto visible;
+  padding: 0 var(--default-horizontal-padding) 0.5rem;
+}
+
+.history > .timeline::after {
+  bottom: 0;
+  z-index: -1;
+  content: "";
+  height: 0.5rem;
+  position: absolute;
+  border-radius: 0.5rem;
+  transform: translateY(-0.625rem);
+  left: var(--default-horizontal-padding);
+  background-color: var(--background-accent);
+  width: calc(var(--timeline-box-max-width) * 3 + 5rem);
+}
+
+.history > .timeline > .box {
+  display: flex;
+  flex: 0 0 auto;
+  grid-gap: 1.5rem;
+  flex-direction: column;
+  max-width: var(--timeline-box-max-width);
+}
+
+.history > .timeline > .box > .content {
+  display: flex;
+  padding: 1rem;
+  grid-gap: 0.5rem;
+  position: relative;
+  border-radius: 1rem;
+  flex-direction: column;
+  background-color: var(--background);
+  border: 2px solid var(--background-accent);
+}
+
+.history > .timeline > .box > .content::after {
+  content: "";
+}
+
+.history > .timeline > .box > .content > .date {
+  line-height: 100%;
+  font-weight: bold;
+  font-size: 1.25rem;
+  font-family: "Times New Roman", serif;
+}
+
+.history > .timeline > .box > .content > .description {
+  line-height: 175%;
+}
+
+.history > .timeline > .box > .puce {
+  width: 0.75rem;
+  aspect-ratio: 1/1;
+  margin-left: 2rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0.5rem var(--dot-shadow);
+  background-color: var(--background-accent);
+}
+
+.grids {
+  display: flex;
+  grid-gap: 4rem;
+  flex-direction: column;
+  padding: calc(var(--default-horizontal-padding) / 2) var(--default-horizontal-padding);
+}
+.grids > .header {
+  margin: 0;
+}
+.grids > .showcase {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 8rem;
+  align-items: center;
+  justify-content: center;
+}
+.grids > .showcase > .size {
+  display: flex;
+  flex: 0 0 auto;
+  grid-gap: 1rem;
+  align-items: center;
+  flex-direction: column;
+}
+.grids > .showcase > .size > .title {
+  font-weight: 700;
+  line-height: 175%;
+  font-size: 1.25rem;
+}
+.grids > .showcase > .size > .grid {
+  width: 272px;
+  display: grid;
+}
+.grids > .showcase > .size > .grid > .section > .cells {
+  display: grid;
+  grid-gap: 0.25rem;
+}
+.grids > .showcase > .size > .grid > .section > .cells > .cell {
+  user-select: none;
+}
+.grids > .showcase > .size:nth-child(1) > .grid {
+  grid-gap: 15.11px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.grids > .showcase > .size:nth-child(1) > .grid > .section > .cells {
+  grid-gap: 7.56px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.grids > .showcase > .size:nth-child(1) > .grid > .section > .cells > .cell {
+  font-size: 2rem;
+  font-weight: 700;
+  border-radius: 15px;
+}
+.grids > .showcase > .size:nth-child(2) > .grid {
+  grid-gap: 6.64px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.grids > .showcase > .size:nth-child(2) > .grid > .section > .cells {
+  grid-gap: 3.32px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.grids > .showcase > .size:nth-child(2) > .grid > .section > .cells > .cell {
+  font-weight: 700;
+  border-radius: 6px;
+}
+.grids > .showcase > .size:nth-child(3) > .grid {
+  grid-gap: 3.73px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.grids > .showcase > .size:nth-child(3) > .grid > .section > .cells {
+  grid-gap: 1.83px;
+  grid-template-columns: repeat(4, 1fr);
+}
+.grids > .showcase > .size:nth-child(3) > .grid > .section > .cells > .cell {
+  font-weight: 700;
+  font-size: 0.5rem;
+  border-radius: 3px;
+}
+
+.grids > .showcase > .size > .grid > .section > .cells > .cell {
+  display: flex;
+  aspect-ratio: 1/1;
+  line-height: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-accent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section > .header {
+  display: flex;
+  grid-gap: 1rem;
+  max-width: 20rem;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: var(--default-horizontal-padding);
+}
+
+section > .header > .icon {
+  height: 4rem;
+}
+
+section > .header > .title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+section > .header > .description {
+  line-height: 175%;
+}
 
 /*# sourceMappingURL=home.css.map */

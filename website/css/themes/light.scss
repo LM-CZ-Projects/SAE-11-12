@@ -1,11 +1,16 @@
 :root {
   /* TEXT AND LINKS */
-  --text-color: transparent;
-  --text-color-alt: transparent;
+  --text-color: #211A24;
+  --text-color-alt: #BCBABD;
 
   /* MASTER SECTIONS BACKGROUNDS */
-  --header-background: none;
+  --header-background: #FFFDF9;
 
   /* BACKGROUNDS */
-  --background: transparent;
+  --background: #FFF7EA;
+  --background-alt: #FFFAF2;
+  --background-accent: #F3DEBB;
+
+  /* PRIMARY */
+  --dot-shadow: #C665CF;
 }
