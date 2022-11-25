@@ -8,35 +8,52 @@ namespace doku_solver.doku.generator;
 
 public class Generator : Doku{
 
-    public Grid Generate(int sectionSize, int additionalSlotsCount){
+    public Grid GenerateUnsolved(int sectionSize){
+        Grid baseGrid;
+        do{
+            baseGrid = GenerateSolvedGrid(sectionSize);
+        } while (baseGrid == null!);
         Grid grid;
         do{
-            grid = GenerateSolvedGrid(sectionSize);
-        } while (grid == null!);
-        Algorithm algorithm = Algorithm.SlotPerSlot;
-        Random random = new Random();
-        List<Position> removedPositions = new List<Position>();
-        List<short> removedValues = new List<short>();
-        // While the grid is solvable, remove a slot
-        while (IsFilled(algorithm.Solve(grid, 1000))){
-            List<Position> positions = GetAvailablePositions(grid);
-            Position position = positions[random.Next(positions.Count)];
-            removedPositions.Add(position);
-            removedValues.Add(grid.GetOnPosition(position));
-            grid.SetOnPosition(position, 0);
-        }
-
-        // Reset last deleted position
-        Position lastPosition = removedPositions[^1];
-        grid.SetOnPosition(lastPosition, removedValues[^1]);
-        // If to many additional slots, return grid
-        if (additionalSlotsCount > removedPositions.Count) return grid;
-        // Else, reset additional slots
-        for (int i = 1; i <= additionalSlotsCount; i++){
-            lastPosition = removedPositions[^i];
-            grid.SetOnPosition(lastPosition, removedValues[^i]);
-        }
+            grid = new Grid(baseGrid);
+            List<Position> removedPositions = new List<Position>();
+            List<short> removedValues = new List<short>();
+            Position toRemove = GetRandomPosition(sectionSize);
+            if (grid.GetOnPosition(toRemove) != 0){
+                removedValues.Add(grid.GetOnPosition(toRemove));
+                removedPositions.Add(toRemove);
+                grid.SetOnPosition(toRemove, 0);
+            }
+            while (IsDeletionValid(grid, removedPositions)){
+                toRemove = GetRandomPosition(sectionSize);
+                if (grid.GetOnPosition(toRemove) != 0){
+                    removedValues.Add(grid.GetOnPosition(toRemove));
+                    removedPositions.Add(toRemove);
+                    grid.SetOnPosition(toRemove, 0);
+                }
+            }
+            grid.SetOnPosition(removedPositions[^1], removedValues[^1]);
+        } while (IsSolved(Algorithm.SlotPerSlot.Solve(grid, 100)));
         return grid;
+    }
+
+    private bool IsDeletionValid(Grid grid, List<Position> positions){
+        bool is1Present = false;
+        bool isLess2Present = true;
+        foreach (Position position in positions){
+            if (GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column).Count == 1){
+                is1Present = true;
+            }
+            if (GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column).Count >= 2 && isLess2Present){
+                isLess2Present = false;
+            }
+        }
+        return is1Present && isLess2Present;
+    }
+
+    private Position GetRandomPosition(int sectionSize){
+        Random random = new Random();
+        return new Position(random.Next(sectionSize * sectionSize), random.Next(sectionSize * sectionSize));
     }
 
     public Grid GenerateSolvedGrid(int sectionSize){

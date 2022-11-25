@@ -13,7 +13,7 @@ public class Tester{
         for(int i = 0; i < iterationsCount; i++){
             if (displayProgression) Console.WriteLine($"Generating {i+1}/{iterationsCount}...");
             if(generateFullGrid) generator.GenerateSolvedGrid(sectionSize);
-            else generator.Generate(sectionSize, 0);
+            else generator.GenerateUnsolved(sectionSize);
         }
         timer.Stop();
         Console.WriteLine($"Generation done in {timer.GetResult()}s for {iterationsCount} iterations.");
@@ -24,20 +24,19 @@ public class Tester{
         DokuTimer timer = new DokuTimer();
         timer.Start();
         for(int i = 0; i < iterationsCount; i++){
-            if (displayProgression) Console.WriteLine($"Generating {i+1}/{iterationsCount}...");
+            if (displayProgression) Console.WriteLine($"Solving {i+1}/{iterationsCount}...");
             TestAlgorithm(algorithm, false, grids[i]);
         }
         timer.Stop();
-        Console.WriteLine($"Generation done in {timer.GetResult()}s for {iterationsCount} iterations.");
+        Console.WriteLine($"Solving done in {timer.GetResult()}s for {iterationsCount} iterations.");
     }
 
     public void TestAlgorithm(Algorithm algorithm, bool displayResult, int sectionSize){
-        TestAlgorithm(algorithm, displayResult, new Generator().Generate(sectionSize, 0));
+        TestAlgorithm(algorithm, displayResult, new Generator().GenerateUnsolved(sectionSize));
     }
     
     public void TestAlgorithm(Algorithm algorithm, bool displayResult, Grid grid){
         Grid solvedGrid = algorithm.Solve(grid);
-        if (displayResult)
-            DokuSolver.DisplayGrid(new Grid(solvedGrid));
+        if(displayResult) DokuSolver.DisplayGrid(new Grid(solvedGrid));
     }
 }

@@ -46,9 +46,11 @@ public class GridIO{
     public static void GenerateExportJsonGrids(int count, int sectionSize, string fileName){
         List<Grid> grids = new List<Grid>();
         Generator generator = new Generator();
+        Console.WriteLine("Generating grids...");
         for (int i = 0; i < count; i++){
-            grids.Add(generator.Generate(sectionSize, 0));
+            grids.Add(generator.GenerateUnsolved(sectionSize));
         }
+        Console.WriteLine("Exporting grids...");
         ExportJsonGrids(grids, fileName);
     }
     
