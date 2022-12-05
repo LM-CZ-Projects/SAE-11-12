@@ -28,11 +28,9 @@ public class Algorithm{
 
     public static List<Algorithm> GetAlgorithms(){
         List<Algorithm> algorithms = new();
-        foreach (FieldInfo fieldInfo in typeof(Algorithm).GetFields()){
-            if (fieldInfo.GetValue(null) is Algorithm algorithm){
+        foreach (FieldInfo fieldInfo in typeof(Algorithm).GetFields())
+            if (fieldInfo.GetValue(null) is Algorithm algorithm)
                 algorithms.Add(algorithm);
-            }
-        }
         return algorithms;
     }
 

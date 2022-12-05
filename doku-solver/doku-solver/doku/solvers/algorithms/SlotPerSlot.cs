@@ -13,9 +13,8 @@ public class SlotPerSlot : Solver{
                 // Console.WriteLine($"{position.Row}, {position.Column}");
                 if (targetGrid.GetOnCursor() == 0){
                     List<short> possibilities = GetSlotPossibilities(targetGrid, position);
-                    if (possibilities.Count == 1){
+                    if (possibilities.Count == 1)
                         targetGrid.SetOnCursor(possibilities[0]);
-                    }
                 }
                 targetGrid.Cursor.Next();
             }

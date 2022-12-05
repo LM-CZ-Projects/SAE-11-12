@@ -9,10 +9,9 @@ namespace doku_solver.doku.generator;
 public class Generator : Doku{
 
     public Grid GenerateUnsolved(int sectionSize){
-        Grid baseGrid;
-        do{
+        Grid baseGrid = GenerateSolvedGrid(sectionSize);
+        while (baseGrid == null!)
             baseGrid = GenerateSolvedGrid(sectionSize);
-        } while (baseGrid == null!);
         Grid grid;
         do{
             grid = new Grid(baseGrid);
@@ -41,12 +40,10 @@ public class Generator : Doku{
         bool is1Present = false;
         bool isLess2Present = true;
         foreach (Position position in positions){
-            if (GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column).Count == 1){
+            if (GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column).Count == 1)
                 is1Present = true;
-            }
-            if (GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column).Count >= 2 && isLess2Present){
+            if (GetSlotPossibilities(grid.GetGrid(), position.Row, position.Column).Count >= 2 && isLess2Present)
                 isLess2Present = false;
-            }
         }
         return is1Present && isLess2Present;
     }
@@ -87,9 +84,8 @@ public class Generator : Doku{
     }
 
     private void GenerateBaseGrid(Grid grid, int sectionSize){
-        for(int i = 0; i < sectionSize; i++){
+        for(int i = 0; i < sectionSize; i++)
             MergeSection(grid, GenerateSection(sectionSize), i, i);
-        }
     }
 
     private void MergeSection(Grid grid, short[,] section, int sectionRow, int sectionColumn){
