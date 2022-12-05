@@ -1,74 +1,22 @@
-﻿using doku_solver.doku.generator;
+﻿using doku_solver.doku;
 using doku_solver.doku.solvers;
-using doku_solver.doku.tools;
+using doku_solver.grid;
 
 namespace doku_solver;
 
 public static class DokuSolver {
-    private static readonly DokuTimer TIMER = new DokuTimer();
-    public static void Main(){
-        // List<int[,]> grids = new Generator().ImportJsonList("unit_tests");
-        // DisplayGrid(Algorithm.SlotPerSlot.Solve(grids[0]));
-        // GenerateCsv(5, "5x5");
-        
-        RunAlgorithmTest("unit_tests", Algorithm.OtherBackTrack); // O.863
-    }
-
-    private static void RunTest(){
-        DokuTimer timer = new DokuTimer();
-        timer.Start();
-        RunGeneratorTest(100); // Current : 4.05s
-        timer.Stop();
-        Console.WriteLine($"Time for operations: {timer.GetResult()}s");
+    public static void Main() {
+        new Tester().TestAlgorithm(Algorithm.RandomBruteForce, true, 2);
     }
     
-    public static void DisplayGrid(int[,] grid){
+    public static void DisplayGrid(Grid grid) {
         Console.WriteLine("-----------------");
-        for(int i = 0; i < grid.GetLength(0); i++){
-            for(int j = 0; j < grid.GetLength(1); j++){
-                Console.Write(grid[i, j] + " ");
-            }
-            Console.WriteLine();
+        grid.Cursor.Reset();
+        while (grid.Cursor.HasNext()){
+            if (grid.Cursor.GetPosition().Column == 0) Console.WriteLine();
+            Console.Write(grid.GetOnCursor() + " ");
+            grid.Cursor.Next();
         }
-    }
-
-    private static void RunGeneratorTest(int count){
-        int iterationsCount = count;
-        Generator generator = new Generator();
-        for (int i = 0; i < iterationsCount; i++){
-            // Console.WriteLine($"Generating {i+1}/{iterationsCount}");
-            int[,] grid = generator.Generate(3, 0);
-            if (grid == null!) i--;
-        }
-    }
-
-    private static void GenerateJson(int sectionSize, int count, string fileName){
-        int iterationsCount = count;
-        List<int[,]> grids = new();
-        for(int i = 0; i < iterationsCount; i++){
-            Console.WriteLine($"Generating {i+1}/{iterationsCount}");
-            int[,] tab = new Generator().Generate(sectionSize, 0);
-            grids.Add(tab);
-        }
-        new Generator().ExportJson(grids, fileName);
-    }
-    
-    private static void GenerateCsv(int sectionSize, string fileName){
-        int[,] tab = new Generator().GenerateGrid(sectionSize);
-        new Generator().ExportCsv(tab, fileName);
-    }
-
-    private static void RunAlgorithmTest(string fileName, Algorithm algorithm){
-        List<int[,]> grids = new Generator().ImportJsonList(fileName);
-        
-        TIMER.Start();
-        foreach (int[,] grid in grids) RunAlgorithm(grid, algorithm);
-        TIMER.Stop();
-        
-        Console.WriteLine(TIMER.GetResult() + "s");
-    }
-    
-    private static void RunAlgorithm(int[,] grid, Algorithm algorithm){
-        algorithm.Solve(grid);
+        Console.WriteLine(grid.GetOnCursor() + " ");
     }
 }

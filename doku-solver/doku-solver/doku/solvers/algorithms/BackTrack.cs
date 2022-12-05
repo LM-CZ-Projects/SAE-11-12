@@ -1,59 +1,55 @@
-﻿namespace doku_solver.doku.solvers.algorithms;
+﻿using doku_solver.doku.tools;
+using doku_solver.grid;
+
+namespace doku_solver.doku.solvers.algorithms;
 
 public class BackTrack : Solver{
 
     private int _maxDeep;
     
-    public override int[,] Solve(int[,] tab, int maxIterations){
+    public override Grid Solve(Grid grid, int maxIterations){
         _maxDeep = maxIterations;
-        int[,] grid = Copy(tab);
-        Backtrack(grid, 0, 0);
-        return grid;
+        Grid solvedGrid = new Grid(grid);
+        Backtrack(solvedGrid, 0, 0);
+        return solvedGrid;
     }
 
-    /// <summary>
-    /// Recursive method that use the Backtrack algorithm to solve the Sudoku
-    /// </summary>
-    /// <param name="grid">The sudoku grid</param>
-    /// <param name="row">Row to check</param>
-    /// <param name="column">Column to check</param>
-    /// <returns>True if backtrack success, false otherwise</returns>
-    private bool Backtrack(int[,] grid, int row, int column){
-        if(_maxDeep != -1) _maxDeep--;
-        if(_maxDeep == 0 && _maxDeep != -1) return false;
-        if (column >= grid.GetLength(0)){
-            column = 0;
-            row++;
-        }
-        if (row >= grid.GetLength(1)) return true;
+    private bool Backtrack(Grid grid, int row, int column){
+        Position position = new Position(row, column);
+        grid.Cursor.SetPosition(position);
+        if (!grid.Cursor.HasNext()) return true;
 
-        if (grid[row, column] != 0)
-            return Backtrack(grid, row, column + 1);
-        
-        for (int k = 1; k <= grid.GetLength(0); k++){
-            if (!IsPresentForSlot(grid, row, column, k)){
-                grid[row, column] = k;
-                if (Backtrack(grid, row, column + 1)) return true;
+        if (grid.GetOnPosition(position) != 0){
+            Position nextPosition = new Cursor(grid.GetLength()).SetPosition(position).Next().GetPosition();
+            return Backtrack(grid, nextPosition.Row, nextPosition.Column);
+        }
+
+        for (int i = 1; i <= grid.GetLength(); i++){
+            if (!IsPresentForSlot(grid, position, i)){
+                grid.SetOnPosition(position, i);
+                Position nextPosition = new Cursor(grid.GetLength()).SetPosition(position).Next().GetPosition();
+                if (Backtrack(grid, nextPosition.Row, nextPosition.Column)) return true;
             }
         }
-        grid[row, column] = 0;
+        grid.SetOnPosition(position, 0);
         return false;
     }
 
-    private bool IsPresentForSlot(int[,] grid, int row, int column, int value){
-        for(int i = 0; i < grid.GetLength(0); i++){
-            if (grid[row, i] == value) return true;
-            if (grid[i, column] == value) return true;
+    private bool IsPresentForSlot(Grid grid, int row, int column, int value){
+        for(int i = 0; i < grid.GetLength(); i++){
+            if (grid.GetGrid()[row, i] == value) return true;
+            if (grid.GetGrid()[i, column] == value) return true;
         }
-        int sqrt = (int)Math.Sqrt(grid.GetLength(0));
+        int sqrt = (int)Math.Sqrt(grid.GetLength());
         int boxRowStart = row - row % sqrt;
         int boxColStart = column - column % sqrt;
-        for (int r = boxRowStart; r < boxRowStart + sqrt; r++){
-            for (int c = boxColStart; c < boxColStart + sqrt; c++){
-                if (grid[r, c] == value) return true;
-            }
-        }
-
+        for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
+            for (int c = boxColStart; c < boxColStart + sqrt; c++)
+                if (grid.GetGrid()[r, c] == value) return true;
         return false;
+    }
+
+    private bool IsPresentForSlot(Grid grid, Position position, int value){
+        return IsPresentForSlot(grid, position.Row, position.Column, value);
     }
 }
