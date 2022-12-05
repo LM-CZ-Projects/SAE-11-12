@@ -1,15 +1,15 @@
 ﻿using doku_solver.doku;
+using doku_solver.doku.solvers;
 using doku_solver.grid;
 
 namespace doku_solver;
 
-public static class DokuSolver{
-    public static void Main(){
-        GridIO.GenerateExportJsonGrids(100000, 3, "tests_10k_3x3");
-        // new Tester().TestGeneratorPerformances(100000, 3, false, true); // 12.7s
+public static class DokuSolver {
+    public static void Main() {
+        new Tester().TestAlgorithm(Algorithm.RandomBruteForce, true, 2);
     }
     
-    public static void DisplayGrid(Grid grid){
+    public static void DisplayGrid(Grid grid) {
         Console.WriteLine("-----------------");
         grid.Cursor.Reset();
         while (grid.Cursor.HasNext()){

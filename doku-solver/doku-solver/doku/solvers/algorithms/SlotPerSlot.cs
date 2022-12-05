@@ -7,7 +7,7 @@ public class SlotPerSlot : Solver{
     public override Grid Solve(Grid grid, int maxIterations){
         Grid targetGrid = new Grid(grid);
         int iterations = 0;
-        while(!IsSolved(targetGrid) && iterations < maxIterations){
+        while(!IsFilled(targetGrid) && iterations < maxIterations){
             while (targetGrid.Cursor.HasNext()){
                 Position position = targetGrid.Cursor.GetPosition();
                 // Console.WriteLine($"{position.Row}, {position.Column}");

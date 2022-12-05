@@ -63,7 +63,7 @@ public class Generator : Doku{
         // int[,] solvedGrid = backTrack.Solve(grid, (int) Math.Pow(Factorial(sectionSize), 3)); // 5!^3
         Grid solvedGrid = backTrack.Solve(baseGrid, -1);
         // DokuSolver.DisplayGrid(grid);
-        if (!IsSolved(solvedGrid)) return null!;
+        if (!IsFilled(solvedGrid)) return null!;
         return solvedGrid;
     }
 

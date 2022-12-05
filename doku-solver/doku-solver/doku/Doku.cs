@@ -12,16 +12,33 @@ public class Doku{
         return nTab;
     }
 
-    protected bool IsSolved(short[,] tab){
+    protected bool IsFilled(short[,] tab){
+        bool isFilled = true;
+        for (int i = 0; i < tab.GetLength(0) && isFilled; i++){
+            for (int j = 0; j < tab.GetLength(1) && isFilled; j++){
+                if(tab[i, j] == 0) isFilled = false;
+                // if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
+            }
+        }
+        return isFilled;
+    }
+    
+    protected bool IsFilled(Grid grid){
+        return IsFilled(grid.GetGrid());
+    }
+
+    protected bool IsSolved(short[ , ] tab) {
         bool isSolved = true;
         for (int i = 0; i < tab.GetLength(0) && isSolved; i++)
             for (int j = 0; j < tab.GetLength(1) && isSolved; j++)
                 if(tab[i, j] == 0) isSolved = false;
-                // if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
+                if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
+            }
+        }
         return isSolved;
     }
-    
-    protected bool IsSolved(Grid grid){
+
+    protected bool IsSolved(Grid grid) {
         return IsSolved(grid.GetGrid());
     }
     
