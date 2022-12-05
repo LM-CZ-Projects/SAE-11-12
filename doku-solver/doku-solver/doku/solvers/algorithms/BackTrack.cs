@@ -43,11 +43,9 @@ public class BackTrack : Solver{
         int sqrt = (int)Math.Sqrt(grid.GetLength());
         int boxRowStart = row - row % sqrt;
         int boxColStart = column - column % sqrt;
-        for (int r = boxRowStart; r < boxRowStart + sqrt; r++){
-            for (int c = boxColStart; c < boxColStart + sqrt; c++){
+        for (int r = boxRowStart; r < boxRowStart + sqrt; r++)
+            for (int c = boxColStart; c < boxColStart + sqrt; c++)
                 if (grid.GetGrid()[r, c] == value) return true;
-            }
-        }
         return false;
     }
 

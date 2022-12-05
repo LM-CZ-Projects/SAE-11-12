@@ -23,11 +23,9 @@ public class GridIO{
     
     protected short[,] CopyArray(short[,] array){
         short[,] newArray = new short[array.GetLength(0), array.GetLength(1)];
-        for(int i = 0; i < array.GetLength(0); i++){
-            for(int j = 0; j < array.GetLength(1); j++){
+        for(int i = 0; i < array.GetLength(0); i++)
+            for(int j = 0; j < array.GetLength(1); j++)
                 newArray[i, j] = array[i, j];
-            }
-        }
         return newArray;
     }
     
@@ -47,9 +45,8 @@ public class GridIO{
         List<Grid> grids = new List<Grid>();
         Generator generator = new Generator();
         Console.WriteLine("Generating grids...");
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++)
             grids.Add(generator.GenerateUnsolved(sectionSize));
-        }
         Console.WriteLine("Exporting grids...");
         ExportJsonGrids(grids, fileName);
     }
