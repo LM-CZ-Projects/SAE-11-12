@@ -17,10 +17,7 @@ public class OtherBackTrack: Solver {
                     for (int t = 1; t <= GRID_SIZE; t++) {
                         if (IsValidPlacement(grid, t, i, j)) {
                             grid[i, j] = (short) t;
-
-                            if (SmartSolve(grid))
-                                return true;
-                            
+                            if (SmartSolve(grid)) return true;
                             grid[i, j] = 0;
                         }
                     }

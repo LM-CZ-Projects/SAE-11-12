@@ -14,12 +14,10 @@ public class Doku{
 
     protected bool IsFilled(short[,] tab){
         bool isFilled = true;
-        for (int i = 0; i < tab.GetLength(0) && isFilled; i++){
-            for (int j = 0; j < tab.GetLength(1) && isFilled; j++){
+        for (int i = 0; i < tab.GetLength(0) && isFilled; i++)
+            for (int j = 0; j < tab.GetLength(1) && isFilled; j++)
                 if(tab[i, j] == 0) isFilled = false;
                 // if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
-            }
-        }
         return isFilled;
     }
     
