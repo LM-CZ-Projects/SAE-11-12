@@ -29,8 +29,8 @@ public class Doku{
 
     protected bool IsSolved(short[ , ] tab) {
         bool isSolved = true;
-        for (int i = 0; i < tab.GetLength(0) && isSolved; i++)
-            for (int j = 0; j < tab.GetLength(1) && isSolved; j++)
+        for (int i = 0; i < tab.GetLength(0) && isSolved; i++){
+            for (int j = 0; j < tab.GetLength(1) && isSolved; j++){
                 if(tab[i, j] == 0) isSolved = false;
                 if (GetSlotPossibilities(tab, i, j).Count != 0) isSolved = false;
             }
