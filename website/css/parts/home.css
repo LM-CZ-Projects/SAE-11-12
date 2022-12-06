@@ -1,78 +1,86 @@
-.history {
+.hero {
   display: flex;
-  grid-gap: 7.5rem;
-  flex-direction: column;
-  justify-content: center;
+  padding-left: 5em;
+  align-items: center;
+  justify-content: space-between;
 }
-.history > .header {
-  max-width: 20rem;
+.hero > .heading > .title {
+  font-size: 3em;
 }
-
-.history > .timeline {
-  z-index: 0;
+.hero > .heading > .subtitle {
+  font-size: 1.5em;
+}
+.hero > .heading > .play {
   display: flex;
-  grid-gap: 2.5rem;
-  box-sizing: unset;
-  position: relative;
+  grid-gap: 1em;
+  width: max-content;
+  padding: 0.75em 2em;
+  align-items: center;
+  border-radius: 0.75em;
+  border: 2px solid var(--text-color);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+.hero > .heading > .play > svg {
+  height: 1.5em;
+}
+.hero > .heading > .play:hover, .hero > .heading > .play:focus {
+  color: var(--background);
+  background-color: var(--text-color);
+}
+.hero > .icons-container {
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: var(--background-accent);
+}
+.hero > .icons-container > .grid {
+  display: flex;
   align-items: flex-end;
-  overflow: auto visible;
-  padding: 0 var(--default-horizontal-padding) 0.5rem;
-}
-
-.history > .timeline::after {
-  bottom: 0;
-  z-index: -1;
-  content: "";
-  height: 0.5rem;
-  position: absolute;
-  border-radius: 0.5rem;
-  transform: translateY(-0.625rem);
-  left: var(--default-horizontal-padding);
-  background-color: var(--background-accent);
-  width: calc(var(--timeline-box-max-width) * 3 + 5rem);
-}
-
-.history > .timeline > .box {
-  display: flex;
-  flex: 0 0 auto;
-  grid-gap: 1.5rem;
   flex-direction: column;
-  max-width: var(--timeline-box-max-width);
+  transform: translateX(-50%);
 }
-
-.history > .timeline > .box > .content {
+.hero > .icons-container > .grid > .line {
   display: flex;
-  padding: 1rem;
-  grid-gap: 0.5rem;
-  position: relative;
-  border-radius: 1rem;
-  flex-direction: column;
-  background-color: var(--background);
-  border: 2px solid var(--background-accent);
+  align-items: center;
 }
-
-.history > .timeline > .box > .content::after {
-  content: "";
-}
-
-.history > .timeline > .box > .content > .date {
-  line-height: 100%;
-  font-weight: bold;
-  font-size: 1.25rem;
-  font-family: "Times New Roman", serif;
-}
-
-.history > .timeline > .box > .content > .description {
-  line-height: 175%;
-}
-
-.history > .timeline > .box > .puce {
-  width: 0.75rem;
+.hero > .icons-container > .grid > .line > .item {
+  width: 7.5em;
+  display: block;
   aspect-ratio: 1/1;
-  margin-left: 2rem;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0.5rem var(--dot-shadow);
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="1"] {
+  border-radius: 50% 1.25em;
   background-color: var(--background-accent);
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="2"] {
+  border-radius: 50%;
+  background-color: var(--background);
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="3"] {
+  transform: translateX(-100%);
+  background-color: var(--dot-item-1);
+  border-radius: 50% 1.25em 1.25em 50%;
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="4"] {
+  border-radius: 1.25em 50%;
+  background-color: var(--background-darker);
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="5"] {
+  border-radius: 1.25em;
+  background-color: var(--background-accent);
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="6"] {
+  background-color: var(--dot-item-2);
+  border-radius: 1.25em 50% 50% 1.25em;
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="7"] {
+  border-radius: 50%;
+  background-color: var(--dot-item-3);
+}
+.hero > .icons-container > .grid > .line > .item[ta-moman="8"] {
+  border-radius: 1.25em 1.25em 50% 50%;
+  background-color: var(--background);
 }
 
 .grids {
@@ -164,28 +172,6 @@
 
 html {
   scroll-behavior: smooth;
-}
-
-section > .header {
-  display: flex;
-  grid-gap: 1rem;
-  max-width: 20rem;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: var(--default-horizontal-padding);
-}
-
-section > .header > .icon {
-  height: 4rem;
-}
-
-section > .header > .title {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-section > .header > .description {
-  line-height: 175%;
 }
 
 /*# sourceMappingURL=home.css.map */

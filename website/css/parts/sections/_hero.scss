@@ -1,0 +1,99 @@
+.hero {
+  display: flex;
+  padding-left: 5em;
+  align-items: center;
+  justify-content: space-between;
+
+  > .heading {
+    > .title {
+      font-size: 3em;
+    }
+
+    > .subtitle {
+      font-size: 1.5em;
+    }
+
+    > .play {
+      display: flex;
+      grid-gap: 1em;
+      width: max-content;
+      padding: .75em 2em;
+      align-items: center;
+      border-radius: .75em;
+      border: 2px solid var(--text-color);
+      $delay: 250ms;
+      transition: color $delay ease-in-out,
+                  background-color $delay ease-in-out;
+
+      > svg {
+        height: 1.5em;
+      }
+
+      &:hover,
+      &:focus {
+        color: var(--background);
+        background-color: var(--text-color);
+      }
+    }
+  }
+
+  > .icons-container {
+    width: 30%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    background-color: var(--background-accent);
+
+    > .grid {
+      display: flex;
+      align-items: flex-end;
+      flex-direction: column;
+      transform: translateX(-50%);
+
+      > .line {
+        display: flex;
+        align-items: center;
+
+        > .item {
+          width: 7.5em;
+          display: block;
+          aspect-ratio: 1 / 1;
+
+          &[ta-moman='1'] {
+            border-radius: 50% 1.25em;
+            background-color: var(--background-accent);
+          }
+          &[ta-moman='2'] {
+            border-radius: 50%;
+            background-color: var(--background);
+          }
+          &[ta-moman='3'] {
+            transform: translateX(-100%);
+            background-color: var(--dot-item-1);
+            border-radius: 50% 1.25em 1.25em 50%;
+          }
+          &[ta-moman='4'] {
+            border-radius: 1.25em 50%;
+            background-color: var(--background-darker);
+          }
+          &[ta-moman='5'] {
+            border-radius: 1.25em;
+            background-color: var(--background-accent);
+          }
+          &[ta-moman='6'] {
+            background-color: var(--dot-item-2);
+            border-radius: 1.25em 50% 50% 1.25em;
+          }
+          &[ta-moman='7'] {
+            border-radius: 50%;
+            background-color: var(--dot-item-3);
+          }
+          &[ta-moman='8'] {
+            border-radius: 1.25em 1.25em 50% 50%;
+            background-color: var(--background),
+          }
+        }
+      }
+    }
+  }
+}
